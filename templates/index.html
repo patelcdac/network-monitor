@@ -60,6 +60,36 @@
 
             <p class="updated">Last updated: <span id="updated">—</span></p>
         </section>
+        
+<section class="panel history-panel">
+    <div class="panel-heading">
+        <div>
+            <h2>Monitoring History</h2>
+            <p>Recent network checks saved in SQLite</p>
+        </div>
+        <button id="refresh-history">Refresh history</button>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Device</th>
+                    <th>IP Address</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody id="history-rows">
+                <tr>
+                    <td colspan="5">Loading history...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
     </main>
 
     <script src="/static/app.js"></script>

@@ -62,3 +62,66 @@ document.getElementById("refresh").addEventListener("click", refreshDevices);
 
 refreshDevices();
 setInterval(refreshDevices, 15000);
+
+async function refreshHistory() {
+    const historyBody = document.getElementById("history-rows");
+
+    try {
+        const response = await fetch("/api/history");
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const records = await response.json();
+        historyBody.replaceChildren();
+
+        if (records.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+            cell.colSpan = 5;
+            cell.textContent = "No monitoring history yet.";
+            row.appendChild(cell);
+            historyBody.appendChild(row);
+            return;
+        }
+
+        records.forEach(record => {
+            const row = document.createElement("tr");
+
+            const values = [
+                record.checked_at,
+                record.device_name,
+                record.host,
+                record.status,
+                record.response_ms == null
+                    ? "—"
+                    : `${record.response_ms} ms`
+            ];
+
+            values.forEach((value, index) => {
+                const cell = document.createElement("td");
+                cell.textContent = value;
+
+                if (index === 3) {
+                    cell.className =
+                        "status " + (value === "UP" ? "up" : "down");
+                }
+
+                row.appendChild(cell);
+            });
+
+            historyBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("History loading failed:", error);
+        historyBody.textContent = "Unable to load monitoring history.";
+    }
+}
+
+document
+    .getElementById("refresh-history")
+    .addEventListener("click", refreshHistory);
+
+refreshHistory();
+
