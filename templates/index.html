@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Monitor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div>
+            <p class="eyebrow">NETWORK OPERATIONS</p>
+            <h1>Network Monitor</h1>
+            <p class="subtitle">Live device availability and connectivity</p>
+        </div>
+        <span class="live-badge">● MONITORING</span>
+    </header>
+
+    <main>
+        <section class="summary">
+            <article class="metric">
+                <span>Total devices</span>
+                <strong id="total">—</strong>
+            </article>
+            <article class="metric">
+                <span>Devices online</span>
+                <strong id="online">—</strong>
+            </article>
+            <article class="metric">
+                <span>Devices offline</span>
+                <strong id="offline">—</strong>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <h2>Monitored devices</h2>
+                    <p>Reachability checks using ICMP ping</p>
+                </div>
+                <button id="refresh">Refresh now</button>
+            </div>
+
+            <p id="message" role="status">Loading devices...</p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>IP address</th>
+                            <th>Status</th>
+                            <th>Check duration</th>
+                        </tr>
+                    </thead>
+                    <tbody id="devices"></tbody>
+                </table>
+            </div>
+
+            <p class="updated">Last updated: <span id="updated">—</span></p>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
