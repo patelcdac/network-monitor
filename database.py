@@ -2,7 +2,7 @@
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).with_name("network_monitor.db")
+DB_PATH = Path("/app/data/network_monitor.db") if Path("/app/data").is_dir() else Path(__file__).with_name("network_monitor.db")
 
 
 def get_connection():
