@@ -8,7 +8,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +20,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install test dependencies
         run: pip install -r requirements-dev.txt
 
       - name: Run automated tests
         run: python -m pytest -v
+
+      - name: Build Docker image
+        run: docker build -t network-monitor:${{ github.sha }} .
